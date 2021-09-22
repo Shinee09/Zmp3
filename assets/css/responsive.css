@@ -21,11 +21,30 @@
     .header {
         width: 100%;
     }
+    .playing-item-description{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 1076px) {
     .search__block-btn {
         display: none;
+    }
+    .control-section {
+        height: 70px;
+    }
+    .playing-info {
+        width: auto;
+    }
+    .mobile-process {
+        display: block;
+    }
+    .range {
+        display: none;
+    }
+    .control-thumnail {
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -35,6 +54,12 @@
     }
     .song-title {
         max-width: 260px;
+    }
+    .fa-microphone {
+        display: none;
+    }
+    .playing-control i {
+        margin: 0 4px;
     }
 }
 
@@ -58,11 +83,17 @@
     .song-title {
         max-width: 200px;
     }
+    .control-btn-block {
+        display: none;
+    }
+    .playing-control i {
+        margin: 0 12px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .song-item-playing-description-block {
-        width: 200px;
+        width: 280px;
     }
     .song-block {
         margin-right: -8px;
@@ -78,14 +109,25 @@
         width: 400px;
     }
     .song-active-info {
-        margin-bottom: 0px;
+        margin-bottom: 20px;
     }
     .song-list-block {
-        height: 320px;
+        height: 260px;
     }
     .content-block {
-        margin-top: 50px;
+        margin-top: 20px;
     }
+    .control-block {
+        margin: 0 4px;
+    }
+    
+    /* .playing-control i {
+        margin: 0;
+        font-size: 12px;
+    } */
+    /* .btn-repeat, .btn-prev, .btn-random {
+        display: none;
+    } */
 }
 
 @media screen and (max-width: 468px) {
@@ -107,6 +149,9 @@
     }
     .song-item-react {
         margin-left: 0;
+    }
+    .playing-control i {
+        margin: 0 4px;
     }
 }
 
@@ -130,10 +175,43 @@
     .song-title {
         max-width: 220px;
     }
+    .control-btn-block {
+        width: 140px;
+    }
+    .playing-control i {
+        margin: 0 2px;
+    }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 370px) {
     .song-title {
         max-width: 150px;
     }
+    .icon-play, .icon-pause {
+        height: 40px;
+        padding-top: 12px;
+        padding-left: 3px;
+        width: 40px;
+    }
+    .playing-control i {
+        margin: 0;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .icon-play, .icon-pause {
+        height: 40px;
+        padding-top: 12px;
+        padding-left: 3px;
+        width: 40px;
+    }
+    .btn {
+        padding: .375rem .5rem;
+    }
+    .playing-control i {
+        margin: 0;
+        font-size: 12px;
+    }
+    
 }

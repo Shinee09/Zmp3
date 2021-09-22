@@ -33,6 +33,10 @@ a {
     color: var(--navigation-text);
 }
 
+.btn-active i {
+    color: var(--purple-primary)
+}
+
 
 /* 
 ::-webkit-scrollbar-track {
