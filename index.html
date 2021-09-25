@@ -518,9 +518,11 @@
                 localStorage['currentIndex'] = currentIndex;
                 elementFav = document.querySelectorAll('.fa-heart')
                 if (arrayFav.length >= 1) {
-                    arrayFav.forEach((item) => {
-                        return elementFav[item].classList.add('active')
-                    })
+                    arrayFav.forEach(function(item) {
+                        if(item > 0) {
+                            elementFav[item].classList.add('active')
+                        }
+                    });
                 }
             },
             filterFunction: function () {
