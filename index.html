@@ -797,6 +797,15 @@
         }
         app.start()
 
+        // Thông báo không hỗ trợ trình duyệt Internet Explorer 10            
+        browser = {};
+            if (/(MSIE\ [0-9]{1})/i.test(navigator.userAgent)) {
+                browser.agent = navigator.userAgent.match(/(MSIE\ [0-9]{1})/i)[0].split(" ")[0];
+                browser.version = parseInt(navigator.userAgent.match(/(MSIE\ [0-9]+)/i)[0].split(" ")[1]);
+            }
+            if (browser.agent === "MSIE" && browser.version <= 8) {
+                alert('Website không hỗ trợ trình duyệt IE 8 trở xuống, vui lòng sử dụng trình duyệt có phiên bản cao hơn để trải nghiệm dịch vụ tốt hơn. Xin cảm ơn!');
+            }
 
     </script>
 </body>
