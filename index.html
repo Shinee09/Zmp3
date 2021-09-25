@@ -247,6 +247,15 @@
                             min="0" max="100">
                         <div class="mobile-line-background"></div>
                         <div class="mobile-line-current"></div>
+                        <div class="tru-70p">
+                            <div class="circle">
+                                <div class="circle-block">
+                                    <span class="circle-time circle-time-current">00:00</span>
+                                    <span class="circle-time">/</span>
+                                    <span class="circle-time circle-time-total">00:00</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="control-block">
@@ -285,9 +294,8 @@
                                     min="0" max="100">
                                 <div class="line-background"></div>
                                 <div class="line-current" style="width: 0"></div>
-                                <!-- <div class="circle"></div> -->
                             </div>
-                            <label for="" class="song-time" id="timesong">03:39</label>
+                            <label for="" class="song-time" id="timesong">00:00</label>
                         </div>
                     </div>
 
@@ -336,6 +344,9 @@
         const volumeBar = $('.volume-bar')
         const volumeLineCurrent = $('.volume-line-current')
         const volumeBtn = $('.control-volume')
+        const circleBtn = $('.circle')
+        const labelCircleTimeCurrent = $('.circle-time-current')
+        const labelCircleTimeTotal = $('.circle-time-total')
 
         var currentIndex;
         currentIndex = localStorage.getItem('currentIndex')
@@ -554,7 +565,7 @@
                 cdThumbAnimate.pause()
                 // Xử lý khi play
                 playBtn.onclick = function () {
-                    if (_this.isPlaying) {
+                    if (app.isPlaying) {
                         audio.pause();
                     } else {
                         audio.play();
@@ -562,28 +573,34 @@
                 }
                 // Khi bài hát được playing
                 audio.onplay = function () {
-                    _this.isPlaying = true
+                    app.isPlaying = true
                     playBtn.classList.add('playing')
                     cdThumbAnimate.play()
                 }
                 // Khi bài hát bị pause
                 audio.onpause = function () {
-                    _this.isPlaying = false
+                    app.isPlaying = false
                     playBtn.classList.remove('playing')
                     cdThumbAnimate.pause()
                 }
                 // Render thời lượng bài hát vào thanh control
                 audio.onloadedmetadata = function () {
-                    totalTime.innerHTML = _this.convertTime(audio.duration)
+                    totalTime.innerHTML = app.convertTime(audio.duration)
+                    labelCircleTimeTotal.innerHTML = app.convertTime(audio.duration)
                 }
                 // Processing
+
+
                 audio.ontimeupdate = function () {
                     setTimeout(function () {
-                        currentTime.innerHTML = _this.convertTime(audio.currentTime)
+                        currentTime.innerHTML = app.convertTime(audio.currentTime)
                         lineCurrent.style.width = processBar.value + '%';
                         mobileLineCurrent.style.width = processBar.value + '%';
                         processBar.value = (audio.currentTime / audio.duration * 100).toFixed(2)
                         mobileProcessBar.value = (audio.currentTime / audio.duration * 100).toFixed(2)
+
+                        circleBtn.style.left = `calc(${processBar.value}%)`
+                        labelCircleTimeCurrent.innerHTML = app.convertTime(audio.currentTime)
                     }, 100)
                 }
                 // Tua bài hát
@@ -632,7 +649,6 @@
                 audio.onended = function () {
                     if (isRandom) {
                         app.playRandomSong()
-                        audio.play()
                     } if (isRepeat) {
                         audio.play()
                     } else {
@@ -736,12 +752,12 @@
                 }, 200)
             },
             loadCurrentSong: function () {
-                heading.innerHTML = this.currentSong.name
-                titleSongControl.innerHTML = this.currentSong.name
-                singerSongControl.innerHTML = this.currentSong.singer
-                thumb.src = this.currentSong.image
-                thumbFooter.src = this.currentSong.image
-                audio.src = this.currentSong.path
+                heading.innerHTML = app.currentSong.name
+                titleSongControl.innerHTML = app.currentSong.name
+                singerSongControl.innerHTML = app.currentSong.singer
+                thumb.src = app.currentSong.image
+                thumbFooter.src = app.currentSong.image
+                audio.src = app.currentSong.path
             },
             nextSong: function () {
                 currentIndex++

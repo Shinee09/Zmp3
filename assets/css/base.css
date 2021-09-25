@@ -519,7 +519,7 @@
 
 .mobile-line-current {
     max-width: 100%;
-    background-color: #fff;
+    background-color: #c662ef;
     height: 3px;
     border-radius: 4px;
     position: absolute;
@@ -562,7 +562,7 @@
     z-index: 7;
 }
 
-.mobile-process-range::-webkit-slider-thumb, .process-range::-webkit-slider-thumb,
+.process-range::-webkit-slider-thumb,
 .volume-bar::-webkit-slider-thumb {
     /* display: none; */
     -webkit-appearance: none;
@@ -573,11 +573,6 @@
     cursor: pointer;
     background-color: #fff;
 }
-
-/* .process-range:hover .circle {
-    display: inline-block;
-} */
-
 
 .line-background {
     background-color: #fff;
@@ -598,17 +593,45 @@
     z-index: 6;
 }
 
+.mobile-process-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 70px;
+    height: 14px;
+    border-radius: 60px;
+    background-color: transparent;
+    z-index: 8;
+}
+
+.tru-70p {
+    position: absolute;
+    width: calc(100% - 70px);
+    left: 0;
+}
+
 .circle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #fff;
+    width: 70px;
+    height: 16px;
+    border-radius: 60px;
+    background-color: #c662ef;
     position: absolute;
     top: 50%;
-    left: 51px;
-    z-index: 3;
+    left: 0;
+    z-index: 6;
     transform: translateY(-50%);
-    display: none;
+
+}
+
+.circle-block {
+    position: relative;
+    margin-left: 7px;
+    bottom: 7px;
+}
+
+.circle-time {
+    font-size: 9px;
+    color: #fff;
+    padding: 0;
+    margin: 0;
 }
 
 .icon-play, .icon-pause {
