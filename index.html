@@ -140,7 +140,6 @@
                         </a>
                     </li>
                 </ul>
-
                 <ul class="option-list option-list-bottom">
                     <div class="separator-block"></div>
                     <li class="option-item">
@@ -152,9 +151,7 @@
                         </a>
                     </li>
                 </ul>
-
             </div>
-
             <div class="main-section">
                 <div class="header">
                     <div class="header__search">
@@ -310,8 +307,6 @@
                 </div>
             </div>
         </div>
-        <audio id="audio2" src=""></audio>
-
     </div>
 
     <script>
@@ -342,14 +337,11 @@
         const volumeLineCurrent = $('.volume-line-current')
         const volumeBtn = $('.control-volume')
 
-        const audio2 = $('#audio2')
-
         var currentIndex;
         currentIndex = localStorage.getItem('currentIndex')
         if (currentIndex == null) {
             currentIndex = 0;
         }
-
         if (localStorage.getItem('favourite') == null) {
             arrayFav = []
         } else {
@@ -399,7 +391,7 @@
                     path: './assets/mp3/van-nho.mp3',
                     image: './assets/img/van-nho.jpg'
                 }, {
-                    name: 'Tình Đầu',
+                    name: 'Tình đầu',
                     singer: 'Tăng Duy Tân',
                     path: './assets/mp3/tinh-dau.mp3',
                     image: './assets/img/tinh-dau.jpg'
@@ -490,25 +482,16 @@
                     image: './assets/img/ttttt.jpg'
                 }
             ],
-            getTotalTime: function () {
-                let songsLength = app.songs.length;
-                for (var i = 0; i < songsLength; i++) {
-                    audio2.src = app.songs[i].path
-                    console.log(audio2.src)
-                    audio2.onloadedmetadata = function () {
-                        console.log(audio2.duration)
-                    }
-                }
-            },
             render: function () {
                 const htmls = this.songs.map((song, index) => {
-                    // audio2.src = song.path
-                    // console.log(audio2.src)
-                    // console.log(app.convertTime(audio2.duration))
-
-                    // audio2.onloadedmetadata = function () {
-                    // console.log(audio2.duration)
-                    // }
+                    // Lấy thời lượng tất cả bài hát và render
+                    let audioTemp = document.createElement('audio');
+                    audioTemp.src = song.path;
+                    audioTemp.onloadedmetadata = function () {
+                        let totalElementSongTime = document.querySelector(`.time-${index}`)
+                        totalElementSongTime.innerHTML = app.convertTime(audioTemp.duration)
+                    }
+                    // Render list bài hát
                     return `
                         <li class="song-item ${currentIndex == index ? 'song-item-active' : ''}" data-index="${index}">
                             <div class="song-item-playing">
@@ -520,7 +503,7 @@
                                         <span class="song-artists">${song.singer}</span>
                                     </div>
                                 </div>
-                                <span class="song-time">NaN:NaN</span>
+                                <span class="song-time time-${index}"></span>
                                 <div class="song-item-react">
                                     <i class="fas fa-heart" data-favourite="${index}"></i>
                                     <i class="fas fa-bars"></i>
@@ -530,12 +513,13 @@
                     `
                 })
                 listSong.innerHTML = htmls.join('')
-                // app.scrollToActiveSong()
+                // Lưu bài hát đang mở vào localStorage
                 localStorage['currentIndex'] = currentIndex;
+                // Kiểm tra list bài hát yêu thích và render
                 elementFav = document.querySelectorAll('.fa-heart')
                 if (arrayFav.length >= 1) {
-                    arrayFav.forEach(function(item) {
-                        if(item > 0) {
+                    arrayFav.forEach(function (item) {
+                        if (item > 0) {
                             elementFav[item].classList.add('active')
                         }
                     });
@@ -546,12 +530,10 @@
                     return item != '';
                 })
                 localStorage.setItem('favourite', filteredArr2)
-
                 const filteredArr = arrayFav.filter((item, index) => {
                     return arrayFav.indexOf(item) === index;
                 })
                 localStorage.setItem('favourite', filteredArr)
-
             },
             defineProperties: function () {
                 Object.defineProperty(this, 'currentSong', {
@@ -562,7 +544,6 @@
             },
             handleEvents: function () {
                 const _this = this;
-
                 // Xử lý CD quay
                 const cdThumbAnimate = cdThumb.animate([
                     { transform: 'rotate(360deg)' }
@@ -571,7 +552,6 @@
                     iterations: Infinity
                 })
                 cdThumbAnimate.pause()
-
                 // Xử lý khi play
                 playBtn.onclick = function () {
                     if (_this.isPlaying) {
@@ -586,7 +566,6 @@
                     playBtn.classList.add('playing')
                     cdThumbAnimate.play()
                 }
-
                 // Khi bài hát bị pause
                 audio.onpause = function () {
                     _this.isPlaying = false
@@ -607,7 +586,6 @@
                         mobileProcessBar.value = (audio.currentTime / audio.duration * 100).toFixed(2)
                     }, 100)
                 }
-
                 // Tua bài hát
                 processBar.oninput = function () {
                     audio.currentTime = (audio.duration * processBar.value / 100)
@@ -701,7 +679,6 @@
                         }
                     }
                 }
-
                 // Change Volume
                 volumeBar.oninput = function () {
                     audio.volume = volumeBar.value / 100
@@ -719,7 +696,6 @@
                 }
                 // Click button volume 
                 volumeBtn.onclick = function () {
-
                     if (!app.isMute) {
                         volumeBar.value = 0
                         audio.volume = volumeBar.value / 100
@@ -794,7 +770,7 @@
                 app.render()
             },
             start: function () {
-                // Lưu localStorage
+                // Lưu localStorage và lọc trùng mảng
                 this.filterFunction()
 
                 // Định nghĩa các thuộc tính cho Object
@@ -806,26 +782,12 @@
                 // Render playlist
                 this.render()
                 this.scrollToActiveSong()
-                // Lấy thời lượng tất cả bài hát để render
-                this.getTotalTime()
 
                 //Xử lý sự kiện
                 this.handleEvents()
-
             }
         }
         app.start()
-
-        // Thông báo không hỗ trợ trình duyệt Internet Explorer 10            
-        browser = {};
-            if (/(MSIE\ [0-9]{1})/i.test(navigator.userAgent)) {
-                browser.agent = navigator.userAgent.match(/(MSIE\ [0-9]{1})/i)[0].split(" ")[0];
-                browser.version = parseInt(navigator.userAgent.match(/(MSIE\ [0-9]+)/i)[0].split(" ")[1]);
-            }
-            if (browser.agent === "MSIE" && browser.version <= 8) {
-                alert('Website không hỗ trợ trình duyệt IE 8 trở xuống, vui lòng sử dụng trình duyệt có phiên bản cao hơn để trải nghiệm dịch vụ tốt hơn. Xin cảm ơn!');
-            }
-
     </script>
 </body>
 
