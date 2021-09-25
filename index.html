@@ -609,12 +609,9 @@
                 }
 
                 // Tua bài hát
-                processBar.onchange = function () {
+                processBar.oninput = function () {
                     audio.currentTime = (audio.duration * processBar.value / 100)
                     lineCurrent.style.width = processBar.value + '%';
-                }
-                processBar.onmousedown = function() {
-                    app.isTime
                 }
                 mobileProcessBar.oninput = function () {
                     audio.currentTime = (audio.duration * mobileProcessBar.value / 100)
