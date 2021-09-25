@@ -21,6 +21,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
     <!-- awesome font -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -444,19 +448,19 @@
                     image: './assets/img/tanka.jpg'
                 },
                 {
-                    name: 'Chưa bao giờ',
+                    name: 'Chưa Bao Giờ',
                     singer: 'DSK',
                     path: './assets/mp3/chua-bao-gio.mp3',
                     image: './assets/img/chua-bao-gio.jpg'
                 },
                 {
-                    name: 'Lớn rồi',
+                    name: 'Lớn Rồi',
                     singer: 'DSK',
                     path: './assets/mp3/lon-roi.mp3',
                     image: './assets/img/lon-roi.jpg'
                 },
                 {
-                    name: 'Phượt đêm',
+                    name: 'Phượt Đêm',
                     singer: 'Zephyr',
                     path: './assets/mp3/phuot-dem.mp3',
                     image: './assets/img/phuot-dem.jpg'
@@ -466,6 +470,18 @@
                     singer: 'Zephyr',
                     path: './assets/mp3/x-do.mp3',
                     image: './assets/img/x-do.jpg'
+                },
+                {
+                    name: 'Mấy Con Mèo',
+                    singer: 'Datamaniac',
+                    path: './assets/mp3/may-con-meo.mp3',
+                    image: './assets/img/may-con-meo.jpg'
+                },
+                {
+                    name: 'Đỉnh Núi Tuyết Của Nuối Tiếc',
+                    singer: 'Datamaniac',
+                    path: './assets/mp3/dntcnt.mp3',
+                    image: './assets/img/dntcnt.jpg'
                 },
                 {
                     name: 'Thần Tượng Trên Tầng Thượng',
@@ -593,9 +609,12 @@
                 }
 
                 // Tua bài hát
-                processBar.oninput = function () {
+                processBar.onchange = function () {
                     audio.currentTime = (audio.duration * processBar.value / 100)
                     lineCurrent.style.width = processBar.value + '%';
+                }
+                processBar.onmousedown = function() {
+                    app.isTime
                 }
                 mobileProcessBar.oninput = function () {
                     audio.currentTime = (audio.duration * mobileProcessBar.value / 100)
@@ -636,7 +655,10 @@
                 }
                 // End songs 
                 audio.onended = function () {
-                    if (isRepeat) {
+                    if (isRandom) {
+                        app.playRandomSong()
+                        audio.play()
+                    } if (isRepeat) {
                         audio.play()
                     } else {
                         app.nextSong()
