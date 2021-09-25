@@ -29,11 +29,6 @@ a {
     color: var(--navigation-text);
 }
 
-.link-style-white {
-    font-size: 14px;
-    color: var(--navigation-text);
-}
-
 .btn-active i {
     color: var(--purple-primary)
 }
