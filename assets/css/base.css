@@ -363,6 +363,7 @@
     max-width: 360px;
     text-overflow: ellipsis;
     overflow: hidden;
+    text-transform: capitalize;
 }
 
 .song-artists {
