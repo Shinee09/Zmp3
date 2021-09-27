@@ -1,9 +1,9 @@
 @media screen and (max-width: 1400px) {
     .song-active-info {
-        margin-bottom: 50px;
+        margin-bottom: 20px;
     }
     .song-list-block {
-        height: 400px;
+        height: 440px;
     }
     .song-item-playing-description-block {
         width: 480px;
