@@ -251,8 +251,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin-top: 90px;
-    height: calc(100vh - 180px);
+    margin-top: 50px;
+    height: calc(100vh - 140px);
     color: var(--text-primary);
 }
 

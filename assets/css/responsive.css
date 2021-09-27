@@ -112,10 +112,11 @@
         margin-bottom: 20px;
     }
     .song-list-block {
-        height: 260px;
+        height: 262px;
     }
     .content-block {
-        margin-top: 90px;
+        margin-top: 0px;
+        height: calc(100vh - 80px);
     }
     .control-block {
         margin: 0 4px;
@@ -128,6 +129,13 @@
     /* .btn-repeat, .btn-prev, .btn-random {
         display: none;
     } */
+}
+
+@media screen and (max-width:321) and (max-height:568){
+    .app {
+        display: none;
+    }
+    
 }
 
 @media screen and (max-width: 468px) {
