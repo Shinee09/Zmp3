@@ -558,7 +558,37 @@
     width: 600px;
 }
 
-.process-range,
+.process-range {
+    display: none;
+}
+
+.process-range-block:hover {
+    cursor: pointer;
+}
+
+.process-range-block:hover .process-range {
+    display: flex;
+    cursor: pointer;
+    padding: 0;
+    height: 4px;
+    -webkit-appearance: none;
+    outline: none;
+    -webkit-transition: 0.2s;
+    background-color: transparent;
+    border-radius: 4px;
+    position: relative;
+    width: 100%;
+    z-index: 7;
+}
+
+.process-range-block:hover .line-background {
+    height: 4px;
+}
+
+.process-range-block:hover .line-current {
+    height: 4px;
+}
+
 .volume-bar {
     /* opacity: 0.7; */
     /* transition: opacity 0.2s; */
@@ -589,7 +619,7 @@
 
 .line-background {
     background-color: #fff;
-    height: 3px;
+    height: 2px;
     border-radius: 4px;
     position: absolute;
     width: 100%;
@@ -600,7 +630,7 @@
 .line-current {
     width: 0px;
     background-color: #fff;
-    height: 3px;
+    height: 2px;
     border-radius: 4px;
     position: absolute;
     z-index: 6;
