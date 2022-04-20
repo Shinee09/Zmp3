@@ -348,6 +348,10 @@
     color: var(--text-primary);
 }
 
+.song-playing-active {
+    display: none;
+}
+
 .song-item-description {
     display: flex;
     flex-wrap: wrap;
@@ -377,11 +381,20 @@
     font-size: 14px;
 }
 
-.song-item-react i {
-    width: 28px;
+.option {
+    display: flex;
+    align-items: center;
 }
 
-.fa-heart.active {
+.option i {
+    margin: 0 6px;
+}
+
+.fa-heart:hover, .fa-bars:hover {
+    opacity: 0.5;
+}
+
+.fa-heart-active {
     color: var(--purple-primary);
 }
 
@@ -602,12 +615,6 @@
     z-index: 8;
 }
 
-.tru-70p {
-    position: absolute;
-    width: calc(100% - 70px);
-    left: 0;
-}
-
 .circle {
     width: 70px;
     height: 16px;
@@ -618,8 +625,14 @@
     left: 0;
     z-index: 6;
     transform: translateY(-50%);
-
 }
+
+.tru-70p {
+    position: absolute;
+    width: calc(100% - 70px);
+    left: 0;
+}
+
 
 .circle-block {
     position: relative;

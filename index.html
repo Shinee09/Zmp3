@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zing MP3 Fake</title>
+    <title>Zing MP3</title>
     <link rel="shortcut icon" href="https://static-zmp3.zadn.vn/skins/zmp3-v5.2/images/icon_zing_mp3_60.png"
         type="image/x-icon">
 
@@ -45,10 +45,6 @@
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <link rel="stylesheet" href="./assets/css/animation.css">
-
-
-    <!-- js -->
-    <script src="./assets/js/app.js"></script>
 
     <!-- Jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -245,6 +241,7 @@
                     <div class="process-range-block mobile-process-range-block">
                         <input id="process-range" class="mobile-process-range" type="range" value="0" step="0.01"
                             min="0" max="100">
+
                         <div class="mobile-line-background"></div>
                         <div class="mobile-line-current"></div>
                         <div class="tru-70p">
@@ -353,10 +350,12 @@
         if (currentIndex == null) {
             currentIndex = 0;
         }
-        if (localStorage.getItem('favourite') == null) {
+        if (localStorage.getItem('favourite') === null || localStorage.getItem('favourite') === '') {
             arrayFav = []
-        } else {
-            arrayFav = localStorage.getItem('favourite').split(',');
+            localStorage.setItem('favourite', arrayFav)
+        }
+        else {
+            arrayFav = localStorage.getItem('favourite').split(',')
         }
 
         var isRepeat
@@ -386,27 +385,77 @@
         volumeLineCurrent.style.width = volumeTemp * 100 + 'px'
 
         const app = {
-            // currentIndex: 0,
             isPlaying: false,
             isRandom: false,
             isMute: false,
             songs: [
                 {
+                    name: 'Chân Tình',
+                    singer: 'Quang Trung x TLinh',
+                    path: './assets/mp3/chan-tinh.mp3',
+                    image: './assets/img/chan-tinh.jpg'
+                },
+                {
+                    name: 'Ngọt Ngào',
+                    singer: 'CARA',
+                    path: './assets/mp3/ngot-ngao.mp3',
+                    image: './assets/img/ngot-ngao.jpg'
+                },
+                {
+                    name: 'Và Ngày Nào Đó',
+                    singer: 'Quang Trung x Vũ Thảo My',
+                    path: './assets/mp3/va-ngay-nao-do.mp3',
+                    image: './assets/img/va-ngay-nao-do.jpg'
+                },
+                {
+                    name: 'Họ Yêu Ai Mất Rồi',
+                    singer: 'Doãn Hiếu',
+                    path: './assets/mp3/ho-yeu-ai-mat-roi.mp3',
+                    image: './assets/img/ho-yeu-ai-mat-roi.jpg'
+                },
+                {
+                    name: 'Ai Chung Tình Được Mãi',
+                    singer: 'Hoài Lâm Cover',
+                    path: './assets/mp3/ai-chung-tinh-duoc-mai.mp3',
+                    image: './assets/img/ai-chung-tinh-duoc-mai.jpg'
+                },
+                {
+                    name: 'Hẹn Ước Từ Hư Vô',
+                    singer: 'Mỹ Tâm',
+                    path: './assets/mp3/hen-uoc-tu-hu-vo.mp3',
+                    image: './assets/img/hen-uoc-tu-hu-vo.jpg'
+                },
+                {
                     name: 'Ghé Qua',
                     singer: 'Dick x TaynguyenSound',
                     path: './assets/mp3/ghe-qua.mp3',
                     image: './assets/img/ghe-qua.jpg'
-                }, {
+                },
+                {
+                    name: 'Không Bằng',
+                    singer: 'Na',
+                    path: './assets/mp3/khong-bang.mp3',
+                    image: './assets/img/khong-bang.jpg'
+                },
+                {
                     name: 'Vẫn Nhớ',
                     singer: 'Soobin Hoàng Sơn',
                     path: './assets/mp3/van-nho.mp3',
                     image: './assets/img/van-nho.jpg'
-                }, {
+                },
+                {
+                    name: 'Dạ Vũ',
+                    singer: 'Tăng Duy Tân',
+                    path: './assets/mp3/da-vu.mp3',
+                    image: './assets/img/da-vu.jpg'
+                },
+                {
                     name: 'Tình đầu',
                     singer: 'Tăng Duy Tân',
                     path: './assets/mp3/tinh-dau.mp3',
                     image: './assets/img/tinh-dau.jpg'
-                }, {
+                },
+                {
                     name: 'Ngây Thơ Mix',
                     singer: 'Phong Max - Tăng Duy Tân',
                     path: './assets/mp3/ngay-tho.mp3',
@@ -423,74 +472,30 @@
                     singer: 'DIG DIDZAY Cover',
                     path: './assets/mp3/muon-mang-la-tu-luc.mp3',
                     image: './assets/img/muon-mang-la-tu-luc.jpg'
-                }, {
+                },
+                {
                     name: 'Dĩ Vãng Nhạt Nhòa',
                     singer: 'Hà Nhi',
                     path: './assets/mp3/di-vang-nhat-nhoa.mp3',
                     image: './assets/img/di-vang-nhat-nhoa.jpg'
-                }, {
+                },
+                {
                     name: 'Chiều Thu Họa Bóng Nàng',
                     singer: 'Datkaa x QT beatz',
                     path: './assets/mp3/chieu-thu-hoa-bong-nang.mp3',
                     image: './assets/img/chieu-thu-hoa-bong-nang.jpg'
-                }, {
-                    name: 'Mây Lang Thang',
-                    singer: 'TaynguyenSound',
-                    path: './assets/mp3/may-lang-thang.mp3',
-                    image: './assets/img/may-lang-thang.jpg'
-                }, {
+                },
+                {
+                    name: 'Khi Nào (OST Hoàn Châu Cách Cách)',
+                    singer: 'Châu Dương',
+                    path: './assets/mp3/khi-nao.mp3',
+                    image: './assets/img/khi-nao.jpg'
+                },
+                {
                     name: 'OK',
                     singer: 'Binz',
                     path: './assets/mp3/ok-binz.mp3',
                     image: './assets/img/ok-binz.jpg'
-                },
-                {
-                    name: 'Tan ka ka a.k.a Ganja',
-                    singer: 'JGKiD , Đen, EmceeL, KraziNoyze, DSK',
-                    path: './assets/mp3/tanka.mp3',
-                    image: './assets/img/tanka.jpg'
-                },
-                {
-                    name: 'Chưa Bao Giờ',
-                    singer: 'DSK',
-                    path: './assets/mp3/chua-bao-gio.mp3',
-                    image: './assets/img/chua-bao-gio.jpg'
-                },
-                {
-                    name: 'Lớn Rồi',
-                    singer: 'DSK',
-                    path: './assets/mp3/lon-roi.mp3',
-                    image: './assets/img/lon-roi.jpg'
-                },
-                {
-                    name: 'Phượt Đêm',
-                    singer: 'Zephyr',
-                    path: './assets/mp3/phuot-dem.mp3',
-                    image: './assets/img/phuot-dem.jpg'
-                },
-                {
-                    name: 'X-Dơ',
-                    singer: 'Zephyr',
-                    path: './assets/mp3/x-do.mp3',
-                    image: './assets/img/x-do.jpg'
-                },
-                {
-                    name: 'Mấy Con Mèo',
-                    singer: 'Datamaniac',
-                    path: './assets/mp3/may-con-meo.mp3',
-                    image: './assets/img/may-con-meo.jpg'
-                },
-                {
-                    name: 'Đỉnh Núi Tuyết Của Nuối Tiếc',
-                    singer: 'Datamaniac',
-                    path: './assets/mp3/dntcnt.mp3',
-                    image: './assets/img/dntcnt.jpg'
-                },
-                {
-                    name: 'Thần Tượng Trên Tầng Thượng',
-                    singer: 'TaynguyenSound',
-                    path: './assets/mp3/than-tuong-tren-tang-thuong.mp3',
-                    image: './assets/img/ttttt.jpg'
                 }
             ],
             render: function () {
@@ -508,15 +513,17 @@
                             <div class="song-item-playing">
                                 <div class="song-item-playing-description-block">
                                     <img src="${song.image}" class="song-thumbnail-minisize" alt="">
-                                    <i class="fas fa-play song-playing-icon"></i>
+                                    <i class="fas fa-play song-playing-icon ${currentIndex == index ? 'song-playing-active' : ''}"></i>
                                     <div class="song-item-description">
                                         <span class="song-title">${song.name}</span>
                                         <span class="song-artists">${song.singer}</span>
                                     </div>
                                 </div>
                                 <span class="song-time time-${index}"></span>
-                                <div class="song-item-react">
-                                    <i class="fas fa-heart" data-favourite="${index}"></i>
+                                <div class="option">
+                                    <div class="song-item-react">
+                                        <i class="fas fa-heart" data-favourite="${index}"></i>
+                                    </div>
                                     <i class="fas fa-bars"></i>
                                 </div>
                             </div>
@@ -528,23 +535,9 @@
                 localStorage['currentIndex'] = currentIndex;
                 // Kiểm tra list bài hát yêu thích và render
                 elementFav = document.querySelectorAll('.fa-heart')
-                if (arrayFav.length >= 1) {
-                    arrayFav.forEach(function (item) {
-                        if (item > 0) {
-                            elementFav[item].classList.add('active')
-                        }
-                    });
-                }
-            },
-            filterFunction: function () {
-                const filteredArr2 = arrayFav.filter((item, index) => {
-                    return item != '';
-                })
-                localStorage.setItem('favourite', filteredArr2)
-                const filteredArr = arrayFav.filter((item, index) => {
-                    return arrayFav.indexOf(item) === index;
-                })
-                localStorage.setItem('favourite', filteredArr)
+                    arrayFav.map((item) => {
+                        elementFav[item].classList.add('fa-heart-active')
+                    })
             },
             defineProperties: function () {
                 Object.defineProperty(this, 'currentSong', {
@@ -589,8 +582,6 @@
                     labelCircleTimeTotal.innerHTML = app.convertTime(audio.duration)
                 }
                 // Processing
-
-
                 audio.ontimeupdate = function () {
                     setTimeout(function () {
                         currentTime.innerHTML = app.convertTime(audio.currentTime)
@@ -659,8 +650,8 @@
                 // Hành vi click vào song list
                 listSong.onclick = function (e) {
                     const songItem = e.target.closest('.song-item:not(.song-item-active')
-                    const favItem = e.target.closest('.song-item-react')
-                    const test = e.target
+                    const favItem = e.target.closest('.fa-heart')
+                    const index = e.target
                     // Xử lý khi click vào song
                     if (songItem || e.target.closest('.song-item-react')) {
                         if (!favItem) {
@@ -671,28 +662,18 @@
                         }
                     }
                     // Xử lý khi click vào favourite
-                    if (test.closest('.song-item-react')) {
-                        const favIndex = test.getAttribute('data-favourite')
-                        if (favIndex === '' || favIndex === null || favIndex === 'undefined') {
-                        } else {
-                            arrayFav.push(favIndex)
-                            localStorage.setItem('favourite', arrayFav)
-                            app.filterFunction()
-                            app.render()
-                        }
+                    if (index.closest('.fa-heart')) {
+                        const favIndex = index.getAttribute('data-favourite')
+                        arrayFav.unshift(favIndex)
+                        localStorage.setItem('favourite', arrayFav)
+                        app.render()
                     }
-                    if (test.closest('.song-item-react .active')) {
-                        const favIndex = test.getAttribute('data-favourite')
-                        if (arrayFav.length > 1) {
-                            arrayFav.forEach(function (item, index) {
-                                if (favIndex === item) {
-                                    arrayFav.splice(index, 1)
-                                    app.filterFunction()
-                                    app.render()
-                                    localStorage.setItem('favourite', arrayFav)
-                                }
-                            })
-                        }
+                    if (index.closest('.fa-heart-active')) {
+                        const favIndex = index.getAttribute('data-favourite')
+                        arrayFav.splice(arrayFav.indexOf(favIndex), 1)
+                        arrayFav.splice(arrayFav.indexOf(favIndex), 1)
+                        localStorage.setItem('favourite', arrayFav)
+                        app.render()
                     }
                 }
                 // Change Volume
@@ -786,9 +767,6 @@
                 app.render()
             },
             start: function () {
-                // Lưu localStorage và lọc trùng mảng
-                this.filterFunction()
-
                 // Định nghĩa các thuộc tính cho Object
                 this.defineProperties()
 
