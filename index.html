@@ -346,20 +346,14 @@
         const labelCircleTimeTotal = $('.circle-time-total')
 
         var currentIndex;
-        currentIndex = localStorage.getItem('currentIndex')
-        if (currentIndex == null) {
-            currentIndex = 0;
-        }
-        if (localStorage.getItem('favourite') === null || localStorage.getItem('favourite') === '') {
-            arrayFav = []
-            localStorage.setItem('favourite', arrayFav)
-        }
-        else {
-            arrayFav = localStorage.getItem('favourite').split(',')
-        }
+        currentIndex = localStorage.getItem('currentIndex') ?? 0
+
+        var arrayFav;
+        arrayFav = localStorage.getItem('favourite')  ? JSON.parse(localStorage.getItem('favourite')) : []
 
         var isRepeat
         isRepeat = localStorage.getItem('isRepeat')
+
         if (isRepeat === 'true') {
             $('.btn-repeat').classList.add('btn-active')
         } if (isRepeat === 'false') {
@@ -368,6 +362,7 @@
 
         var isRandom
         isRandom = localStorage.getItem('isRandom')
+
         if (isRandom === 'true') {
             $('.btn-random').classList.add('btn-active')
         } if (isRandom === 'false') {
@@ -381,6 +376,7 @@
         } if (volumeTemp == 0) {
             volumeTemp = 1
         }
+        audio.volume = volumeTemp
         volumeBar.value = volumeTemp * 100
         volumeLineCurrent.style.width = volumeTemp * 100 + '%'
 
@@ -500,14 +496,14 @@
             ],
             render: function () {
                 const htmls = this.songs.map((song, index) => {
-                    // Lấy thời lượng tất cả bài hát và render
+                    // Get time song total list and render
                     let audioTemp = document.createElement('audio');
                     audioTemp.src = song.path;
                     audioTemp.onloadedmetadata = function () {
                         let totalElementSongTime = document.querySelector(`.time-${index}`)
                         totalElementSongTime.innerHTML = app.convertTime(audioTemp.duration)
                     }
-                    // Render list bài hát
+                    // Render list song
                     return `
                         <li class="song-item ${currentIndex == index ? 'song-item-active' : ''}" data-index="${index}">
                             <div class="song-item-playing">
@@ -531,9 +527,9 @@
                     `
                 })
                 listSong.innerHTML = htmls.join('')
-                // Lưu bài hát đang mở vào localStorage
+                // Save index song to storage
                 localStorage['currentIndex'] = currentIndex;
-                // Kiểm tra list bài hát yêu thích và render
+                // Render list song favourite
                 elementFav = document.querySelectorAll('.fa-heart')
                     arrayFav.map((item) => {
                         elementFav[item].classList.add('fa-heart-active')
@@ -548,7 +544,7 @@
             },
             handleEvents: function () {
                 const _this = this;
-                // Xử lý CD quay
+                // CD Thumbnail
                 const cdThumbAnimate = cdThumb.animate([
                     { transform: 'rotate(360deg)' }
                 ], {
@@ -556,7 +552,7 @@
                     iterations: Infinity
                 })
                 cdThumbAnimate.pause()
-                // Xử lý khi play
+                // Play icon onclick
                 playBtn.onclick = function () {
                     if (app.isPlaying) {
                         audio.pause();
@@ -564,19 +560,19 @@
                         audio.play();
                     }
                 }
-                // Khi bài hát được playing
+                // Playing
                 audio.onplay = function () {
                     app.isPlaying = true
                     playBtn.classList.add('playing')
                     cdThumbAnimate.play()
                 }
-                // Khi bài hát bị pause
+                // Pause
                 audio.onpause = function () {
                     app.isPlaying = false
                     playBtn.classList.remove('playing')
                     cdThumbAnimate.pause()
                 }
-                // Render thời lượng bài hát vào thanh control
+                // Render song time playing to controlbar
                 audio.onloadedmetadata = function () {
                     totalTime.innerHTML = app.convertTime(audio.duration)
                     labelCircleTimeTotal.innerHTML = app.convertTime(audio.duration)
@@ -594,7 +590,7 @@
                         labelCircleTimeCurrent.innerHTML = app.convertTime(audio.currentTime)
                     }, 100)
                 }
-                // Tua bài hát
+                // Rewind song
                 processBar.oninput = function () {
                     audio.currentTime = (audio.duration * processBar.value / 100)
                     lineCurrent.style.width = processBar.value + '%';
@@ -647,12 +643,12 @@
                         audio.play()
                     }
                 }
-                // Hành vi click vào song list
+                // Onclick song list
                 listSong.onclick = function (e) {
                     const songItem = e.target.closest('.song-item:not(.song-item-active')
                     const favItem = e.target.closest('.fa-heart')
                     const index = e.target
-                    // Xử lý khi click vào song
+                    // Handle click song item
                     if (songItem || e.target.closest('.song-item-react')) {
                         if (!favItem) {
                             currentIndex = songItem.dataset.index;
@@ -661,18 +657,18 @@
                             audio.play()
                         }
                     }
-                    // Xử lý khi click vào favourite
+                    // Handle click song favorite
                     if (index.closest('.fa-heart')) {
                         const favIndex = index.getAttribute('data-favourite')
-                        arrayFav.unshift(favIndex)
-                        localStorage.setItem('favourite', arrayFav)
+                        arrayFav.push(favIndex)
+                        localStorage.setItem('favourite', JSON.stringify(arrayFav))
                         app.render()
                     }
                     if (index.closest('.fa-heart-active')) {
                         const favIndex = index.getAttribute('data-favourite')
                         arrayFav.splice(arrayFav.indexOf(favIndex), 1)
                         arrayFav.splice(arrayFav.indexOf(favIndex), 1)
-                        localStorage.setItem('favourite', arrayFav)
+                        localStorage.setItem('favourite', JSON.stringify(arrayFav))
                         app.render()
                     }
                 }
@@ -767,17 +763,17 @@
                 app.render()
             },
             start: function () {
-                // Định nghĩa các thuộc tính cho Object
+                // Define properties Object
                 this.defineProperties()
 
-                // Tải thông tin bài hát đầu tiên vào UI khi chạy ứng dụng
+                // Load current song and render
                 this.loadCurrentSong()
 
                 // Render playlist
                 this.render()
                 this.scrollToActiveSong()
 
-                //Xử lý sự kiện
+                // Total handle
                 this.handleEvents()
             }
         }
