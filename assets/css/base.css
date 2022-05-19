@@ -219,7 +219,7 @@
     position: relative;
     width: 40px;
     height: 40px;
-    border-radius: 50px;
+    border-radius: 50%;
     background-color: #2f2739;
     color: var(--navigation-text);
     margin-right: 10px;
@@ -244,7 +244,7 @@
 .avatar-icon {
     width: 40px;
     height: 40px;
-    border-radius: 50px;
+    border-radius: 50%;
 }
 
 .content-block {
@@ -273,7 +273,7 @@
 .song-active-thumbnail {
     width: 260px;
     height: 260px;
-    border-radius: 200px;
+    border-radius: 50%;
 }
 
 .song-list-block {
@@ -440,7 +440,7 @@
     width: 68px;
     height: 68px;
     border: 1px solid #fff;
-    border-radius: 50px;
+    border-radius: 50%;
     margin-right: 12px;
 }
 
